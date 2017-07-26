@@ -1,10 +1,11 @@
 #!/bin/bash
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="${BASEDIR}/dotfiles"
 
 # vim
-ln -fs ${BASEDIR}/.vimrc ~/.vimrc
+ln -fs ${DOTFILES_DIR}/.vimrc ~/.vimrc
 
 # git
-ln -fs ${BASEDIR}/.gitconfig ~/.gitconfig
+ln -fs ${DOTFILES_DIR}/.gitconfig ~/.gitconfig
 
