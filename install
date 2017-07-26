@@ -4,8 +4,8 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="${BASEDIR}/dotfiles"
 
 # vim
-ln -fs ${DOTFILES_DIR}/.vimrc ~/.vimrc
+ln -fsv ${DOTFILES_DIR}/.vimrc ~
 
 # git
-ln -fs ${DOTFILES_DIR}/.gitconfig ~/.gitconfig
+ln -fsv ${DOTFILES_DIR}/.gitconfig ~
 
