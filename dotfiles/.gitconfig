@@ -1,9 +1,9 @@
 [core]
-	excludesfile = /Users/wojciechko/.gitignore
-	editor = vim
+  excludesfile = /Users/wojciechko/.gitignore
+  editor = vim
 
 [diff]
-	compactionHeuristic = true
+  compactionHeuristic = true
 
 [commit]
   template = ~/.gitmessage
