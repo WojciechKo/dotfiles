@@ -1,11 +1,22 @@
 #!/bin/bash
 
+# Update App Store apps
+sudo softwareupdate -i -a
+
+# Install Homebrew and Homebrew-Cask
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew tap caskroom/cask
+brew install brew-cask
+brew tap caskroom/versions
+
+# Update Homebrew
+brew update
+brew upgrade
+
+# Create symlinks for dotfiles
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="${BASEDIR}/dotfiles"
 
-# vim
 ln -fsv ${DOTFILES_DIR}/.vimrc ~
-
-# git
 ln -fsv ${DOTFILES_DIR}/.gitconfig ~
 
