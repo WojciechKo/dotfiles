@@ -1,0 +1,3 @@
+[submodule "gitkurwa"]
+	path = gitkurwa
+	url = https://github.com/jakubnabrdalik/gitkurwa
