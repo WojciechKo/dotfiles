@@ -102,6 +102,7 @@ let g:ale_fix_on_save = 1
 
 " Set system clipboard as default
 set clipboard=unnamed
+set lazyredraw
 
 " Setup line number indicator
 set number
