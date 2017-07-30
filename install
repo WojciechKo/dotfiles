@@ -13,6 +13,9 @@ brew tap caskroom/versions
 brew update
 brew upgrade
 
+# Ctags for vim
+brew install ctags
+
 # Create symlinks for dotfiles
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="${BASEDIR}/dotfiles"

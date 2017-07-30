@@ -1,5 +1,11 @@
 set nocompatible
 
+" Create the `tags` file, make sure that ctags is installed
+command! MakeTags !ctags -R .
+
+" Lookup for tags file in current folder
+set tags=tags;/
+
 " Enable syntax highlighting
 syntax enable
 
@@ -74,3 +80,9 @@ let g:ale_fix_on_save = 1
 Plug 'kchmck/vim-coffee-script'
 
 call plug#end()
+" Shortcuts
+
+" Ctags and jumping
+" ^] - jump to tag
+" g^] - show list if ambiguous match of tag
+" ^t - jump up
