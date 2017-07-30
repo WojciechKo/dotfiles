@@ -1,10 +1,20 @@
 set nocompatible
 
-" Persistence
+" Enable syntax highlighting
+syntax enable
+
+" Enable filetype-specific plugins
+filetype plugin on
+
+" Persistence and backup
 silent !mkdir ~/.vim/.undo ~/.vim/.backup ~/.vim/.swp > /dev/null 2>&1
 set undodir=~/.vim/.undo//
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
+
+" Search all subfolders
+set path +=**
+" set wildmenu
 
 " Highlight search results
 set hlsearch
@@ -27,11 +37,6 @@ set relativenumber
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
-" syntax on             " Enable syntax highlighting
-" filetype on           " Enable filetype detection
-" filetype indent on    " Enable filetype-specific indenting
-" filetype plugin on    " Enable filetype-specific plugins
 
 " Plug
 call plug#begin()
