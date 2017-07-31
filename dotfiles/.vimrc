@@ -86,3 +86,9 @@ call plug#end()
 " ^] - jump to tag
 " g^] - show list if ambiguous match of tag
 " ^t - jump up
+"
+" Autocomplete
+" ^n   - anything specified by the 'complete' option
+" ^x^n - this file only
+" ^x^f - filenames only
+" ^x^] - tags only
