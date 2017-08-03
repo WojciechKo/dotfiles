@@ -23,7 +23,10 @@ set showcmd
 
 " Search all subfolders
 set path +=**
-" set wildmenu
+
+" Setup wildmenu
+set wildmenu
+set wildmode=longest:full,full
 
 " Highlight search results
 set hlsearch
