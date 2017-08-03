@@ -18,6 +18,9 @@ set undodir=~/.vim/.undo//
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
 
+" Display entered command
+set showcmd
+
 " Search all subfolders
 set path +=**
 " set wildmenu
