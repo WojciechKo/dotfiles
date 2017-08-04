@@ -3,6 +3,14 @@ set nocompatible
 " Create the `tags` file, make sure that ctags is installed
 command! MakeTags !ctags -R .
 
+" Set <Space> to be leader
+let mapleader = " "
+
+" Edit .vimrc
+nnoremap <leader>ev :e $MYVIMRC<cr>
+" Reload .vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>:redraw!<cr>
+
 " Lookup for tags file in current folder
 set tags=tags;/
 
