@@ -31,6 +31,12 @@ set wildmode=longest:full,full
 " Highlight search results
 set hlsearch
 
+" Ignore case while search
+set ignorecase
+
+" If search contains uppercase, takie case into account
+set smartcase
+
 " new split is selected
 set splitbelow
 set splitright
