@@ -1,3 +1,7 @@
+[include]
+  path = ~/.gitkurwa_config
+  path = ~/.gitconfig_local
+
 [core]
   excludesfile = /Users/wojciechko/.gitignore
   editor = vim
@@ -5,6 +9,5 @@
 [diff]
   compactionHeuristic = true
 
-[include]
-  path = ~/.gitkurwa_config
-  path = ~/.gitconfig_local
+[push]
+  default = simple
