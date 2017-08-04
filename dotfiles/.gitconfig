@@ -5,9 +5,6 @@
 [diff]
   compactionHeuristic = true
 
-[commit]
-  template = ~/.gitmessage
-
 [include]
   path = ~/.gitkurwa_config
   path = ~/.gitconfig_local
