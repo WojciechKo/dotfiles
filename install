@@ -3,9 +3,14 @@
 # Update App Store apps
 sudo softwareupdate -i -a
 
+# Install xcode command line
+xcode-select --install
+
 # Install Homebrew and Homebrew-Cask
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew doctor
 brew tap caskroom/cask
+
 brew install brew-cask
 brew tap caskroom/versions
 
