@@ -31,5 +31,6 @@ ln -fsv ${DOTFILES_DIR}/.ctags ~
 
 ln -fsv ${BASEDIR}/gitkurwa/config ~/.gitkurwa_config
 ln -fsv ${DOTFILES_DIR}/.gitconfig ~
+ln -fsv ${DOTFILES_DIR}/.gitignore ~
 ln -fsv ${DOTFILES_DIR}/.gitconfig_local ~
 

@@ -3,7 +3,7 @@
   path = ~/.gitconfig_local
 
 [core]
-  excludesfile = /Users/wojciechko/.gitignore
+  excludesfile = ~/.gitignore
   editor = vim
 
 [diff]
