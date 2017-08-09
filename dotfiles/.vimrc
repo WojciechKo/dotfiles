@@ -1,7 +1,7 @@
 set nocompatible
 
 " Create the `tags` file, make sure that ctags is installed
-command! MakeTags !ctags -R .
+command! MakeTags !ctags -f .tags -R .
 
 " Set <Space> to be leader
 let mapleader = " "
@@ -12,7 +12,7 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:redraw!<cr>
 
 " Lookup for tags file in current folder
-set tags=tags;/
+set tags=.tags;/
 
 " Enable syntax highlighting
 syntax enable
