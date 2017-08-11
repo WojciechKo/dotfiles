@@ -49,6 +49,12 @@ set smartcase
 set splitbelow
 set splitright
 
+" Easier split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " Set system clipboard as default
 set clipboard=unnamed
 
