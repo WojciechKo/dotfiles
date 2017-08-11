@@ -72,7 +72,7 @@ set expandtab
 
 " Plug
 call plug#begin()
-Plug 'tpope/vim-sensible'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'bronson/vim-trailing-whitespace'
 
@@ -91,6 +91,10 @@ fun! FzfOmniFiles()
     :GitFiles
   endif
 endfun
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'tpope/vim-sensible'
 
 Plug 'tpope/vim-surround'
 
