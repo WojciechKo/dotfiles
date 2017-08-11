@@ -1,2 +1,8 @@
 # Ignore output of `ctags`
 .tags
+
+# Byebug history file
+.byebug_history
+
+# RubyMine stuff
+.idea/
