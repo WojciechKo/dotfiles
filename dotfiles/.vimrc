@@ -95,6 +95,8 @@ fun! FzfOmniFiles()
 endfun
 
 Plug 'tpope/vim-fugitive'
+" Allows to update index with save to index file
+set modifiable
 
 Plug 'tpope/vim-sensible'
 
