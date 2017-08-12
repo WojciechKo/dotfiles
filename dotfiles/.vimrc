@@ -106,6 +106,11 @@ Plug 'tpope/vim-repeat'
 
 Plug 'w0rp/ale'
 
+Plug 'vim-ruby/vim-ruby'
+let ruby_operators = 1
+let ruby_spellcheck_strings = 1
+let g:ruby_indent_block_style = 'do'
+
 Plug 'kchmck/vim-coffee-script'
 
 call plug#end()
