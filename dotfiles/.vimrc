@@ -104,12 +104,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-repeat'
 
-Plug 'Chiel92/vim-autoformat'
-
 Plug 'w0rp/ale'
-let g:ale_fixers = {
-\ 'ruby': ['rubocop']
-\}
 
 Plug 'kchmck/vim-coffee-script'
 
