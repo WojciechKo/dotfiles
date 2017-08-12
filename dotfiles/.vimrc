@@ -74,6 +74,8 @@ set expandtab
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
 
+Plug 'altercation/vim-colors-solarized'
+
 Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -112,6 +114,9 @@ let g:ale_fix_on_save = 1
 Plug 'kchmck/vim-coffee-script'
 
 call plug#end()
+
+let g:solarized_termcolors=256
+colorscheme solarized
 " Shortcuts
 
 " Ctags and jumping
