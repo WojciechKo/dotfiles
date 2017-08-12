@@ -111,8 +111,6 @@ let g:ale_fixers = {
 \ 'ruby': ['rubocop']
 \}
 
-let g:ale_fix_on_save = 1
-
 Plug 'kchmck/vim-coffee-script'
 
 call plug#end()
