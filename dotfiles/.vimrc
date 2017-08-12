@@ -95,6 +95,8 @@ fun! FzfOmniFiles()
 endfun
 
 Plug 'tpope/vim-fugitive'
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
 " Allows to update index with save to index file
 set modifiable
 
