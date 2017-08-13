@@ -14,6 +14,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>:redraw!<cr>
 " Lookup for tags file in current folder
 set tags=.tags;/
 
+" Highlight cursor line
+set cursorline
+
 " Enable syntax highlighting
 syntax enable
 
