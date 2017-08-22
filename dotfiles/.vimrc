@@ -81,6 +81,8 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'altercation/vim-colors-solarized'
 
+Plug 'ap/vim-css-color'
+
 Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
