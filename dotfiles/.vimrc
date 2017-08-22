@@ -1,18 +1,24 @@
 set nocompatible
 
+" ### CTags
+"
 " Create the `tags` file, make sure that ctags is installed
 command! MakeTags !ctags -f .tags -R .
+" Lookup for tags file in current folder
+set tags=.tags;/
 
 " Set <Space> to be leader
 let mapleader = " "
 
+" Files with *.md extension treat as markdown files
+au BufNewFile,BufRead *.md set filetype=markdown
 " Edit .vimrc
 nnoremap <leader>ev :e $MYVIMRC<cr>
 " Reload .vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>:redraw!<cr>
 
-" Lookup for tags file in current folder
-set tags=.tags;/
+" Open file in chrome
+nnoremap <leader>c :exe ':silent !/usr/bin/open -a "/Applications/Google Chrome.app" %'<CR>
 
 " Highlight cursor line
 set cursorline
@@ -75,6 +81,13 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+" track current directory
+let g:netrw_keepdir=1
+
+" Tree style listing
+let g:netrw_localrmdir='rm -r'
+let g:netrw_liststyle=3
+
 " Plug
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
@@ -87,21 +100,36 @@ Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'godlygeek/tabular'
 
+Plug 'JamshedVesuna/vim-markdown-preview'
+let vim_markdown_preview_toggle=0
+let vim_markdown_preview_hotkey='<leader>m'
+let vim_markdown_preview_browser='Google Chrome'
+" let vim_markdown_preview_github=1
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nnoremap <C-b> :Buffers<CR>
 nnoremap <C-g>g :Ag<CR>
 nnoremap <leader><leader> :Commands<CR>
-nnoremap <C-p> :call FzfOmniFiles()<CR>
+nnoremap <C-p> :Files<CR>
 
-fun! FzfOmniFiles()
-  let is_git = system('git status')
-  if v:shell_error
-    :Files
-  else
-    :GitFiles
-  endif
-endfun
+" fun! FzfOmniFiles()
+"   let is_git = system('git status')
+"   if v:shell_error
+"     :Files
+"   else
+"     :GitFiles
+"   endif
+" endfun
+
+Plug 'moll/vim-node'
+Plug 'mxw/vim-jsx'
+let g:jsx_ext_required = 0
+Plug 'ternjs/tern_for_vim'
+" Enable keyboard shortcuts
+let g:tern_map_keys=1
+
+Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-fugitive'
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -126,6 +154,9 @@ let g:ruby_indent_block_style = 'do'
 
 Plug 'kchmck/vim-coffee-script'
 
+Plug 'scrooloose/nerdtree'
+map <leader>f :NERDTreeFind<CR>
+
 call plug#end()
 
 let g:solarized_termcolors=256
@@ -133,12 +164,15 @@ colorscheme solarized
 " Shortcuts
 
 " Ctags and jumping
-" ^] - jump to tag
-" g^] - show list if ambiguous match of tag
-" ^t - jump up
-"
+" ^]                 - jump to tag
+" g^]                - show list if ambiguous match of tag
+" ^t                 - jump up
+
 " Autocomplete
-" ^n   - anything specified by the 'complete' option
-" ^x^n - this file only
-" ^x^f - filenames only
-" ^x^] - tags only
+" ^n                 - anything specified by the 'complete' option
+" ^x^n               - this file only
+" ^x^f               - filenames only
+" ^x^]               - tags only
+
+" Netrw
+" gn                 - set top directory

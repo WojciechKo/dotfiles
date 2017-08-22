@@ -1,29 +1,84 @@
 #!/bin/bash
 
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="${BASEDIR}/dotfiles"
+
 # Update App Store apps
 sudo softwareupdate -i -a
 
 # Install xcode command line
+sudo xcodebuild -license accept
 xcode-select --install
 
 # Install Homebrew and Homebrew-Cask
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update
+brew upgrade
 brew doctor
-brew tap caskroom/cask
-
-brew install brew-cask
-brew tap caskroom/versions
+# brew tap caskroom/cask
+# brew tap caskroom/versions
 
 # Update Homebrew
 brew update
 brew upgrade
 
+# Install node
+brew install nvm
+nvm install stable
+nvm use stable
+
+# Install ctags for javascript
+npm install -g git+https://github.com/ramitos/jsctags.git
+
+# Install sublime
+brew cask install sublime-text
+
+# Install zsh
+brew install zsh zsh-completions
+rm -f ~/.zcompdump; compinit
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+
+# Install Powerline fonts
+git clone https://github.com/powerline/fonts.git --depth=1
+./fonts/install.sh
+rm -rf fonts
+
+# Install fish-like syntax highlight
+brew install zsh-syntax-highlighting
+
+# Install iterm2
+brew cask install iterm2
+
+# Install Chrome
+brew cask install google-chrome
+
+# Install Firefox
+brew cask install firefox
+
+# Install vim
+brew install vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim +PlugInstall +qall
+
 # Ctags for vim
 brew install ctags
 
+# Install tern
+(cd ~/.vim/plugged/tern_for_vim && npm install)
+
+# Install Ruby
+brew install rbenv rbenv-default-gems
+ln -fsv ${DOTFILES_DIR}/.rbenv/default-gems ~/.rbenv/default-gems
+rbenv install 2.4.1
+rbenv global 2.4.1
+
+brew install qt
+# Install shiftit
+brew cask install shiftit
+
 # Create symlinks for dotfiles
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTFILES_DIR="${BASEDIR}/dotfiles"
+ln -fsv ${DOTFILES_DIR}/.zshrc ~
+rm ~/.zshrc.pre-oh-my-zsh
 
 ln -fsv ${DOTFILES_DIR}/.vimrc ~
 

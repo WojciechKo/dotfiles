@@ -6,3 +6,6 @@
 
 # RubyMine stuff
 .idea/
+
+# macOS garbage
+.DS_Store
