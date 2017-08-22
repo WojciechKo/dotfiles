@@ -85,6 +85,8 @@ Plug 'ap/vim-css-color'
 
 Plug 'bronson/vim-trailing-whitespace'
 
+Plug 'godlygeek/tabular'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nnoremap <C-b> :Buffers<CR>
