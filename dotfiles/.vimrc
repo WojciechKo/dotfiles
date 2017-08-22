@@ -52,6 +52,8 @@ set smartcase
 set splitbelow
 set splitright
 
+set diffopt=filler,vertical
+
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
