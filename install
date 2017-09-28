@@ -24,6 +24,7 @@ brew upgrade
 
 # Install node
 brew install nvm
+mkdir ~/.nvm
 nvm install stable
 nvm use stable
 
@@ -72,7 +73,7 @@ ln -fsv ${DOTFILES_DIR}/.rbenv/default-gems ~/.rbenv/default-gems
 rbenv install 2.4.1
 rbenv global 2.4.1
 
-brew install qt
+brew install qt@5.5
 # Install shiftit
 brew cask install shiftit
 
