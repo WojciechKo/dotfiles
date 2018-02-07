@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
 
@@ -9,6 +6,7 @@ export ZSH="/Users/$USER/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
 export DEFAULT_USER=wojciechko
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -84,19 +82,59 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Init rbenv
 eval "$(rbenv init -)"
 
+# Add some zsh fireworks
 fpath=(/usr/local/share/zsh-completions $fpath)
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+# Init nvm
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh" --no-use
+
+# Init golang
 export GOPATH=$HOME/dev/golang
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
+source $HOME/.cargo/env
+
+# Init fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+# Remove annoying gem
 export RUBYOPT=--disable-did-you-mean
+
+# Init base16 color scheme
+BASE16_SHELL=$HOME/dotfiles/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+# alias vim='mvim -v'
+
+# change node version if enter to directory with .nvmrc file
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
+alias be='bundle exec'
