@@ -9,3 +9,6 @@
 
 # macOS garbage
 .DS_Store
+
+# rbenv ruby version indicator
+.ruby-version
