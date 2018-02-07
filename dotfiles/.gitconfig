@@ -12,6 +12,17 @@
 [push]
   default = simple
 
+[branch]
+  autosetupmerge = always
+  autosetuprebase = always
+
 [rerere]
   enabled = true
   autoupdate = true
+
+[alias]
+  diffs = diff --staged
+  hub = log --all --pretty=format:'%Cred%h %Cblue%ai %Creset%s' --abbrev-commit --author='Wojciech Korzeniowski' --author-date-order
+
+[commit]
+  gpgsign = true
