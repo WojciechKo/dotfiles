@@ -7,8 +7,8 @@ DOTFILES_DIR="${BASEDIR}/dotfiles"
 sudo softwareupdate -i -a
 
 # Install xcode command line
-sudo xcodebuild -license accept
 xcode-select --install
+sudo xcodebuild -license accept
 
 # Install Homebrew and Homebrew-Cask
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -27,6 +27,7 @@ brew install nvm
 mkdir ~/.nvm
 nvm install stable
 nvm use stable
+npm install webpack-dev-server -g
 
 # Install ctags for javascript
 npm install -g git+https://github.com/ramitos/jsctags.git
@@ -35,7 +36,7 @@ npm install -g git+https://github.com/ramitos/jsctags.git
 brew cask install sublime-text
 
 # Install zsh
-brew install zsh zsh-completions
+brew install zsh zsh-completions zsh-autosuggestions
 rm -f ~/.zcompdump; compinit
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 
@@ -53,11 +54,29 @@ brew cask install iterm2
 # Install Chrome
 brew cask install google-chrome
 
+# Install spotify
+brew cask install spotify
+
+# Install qnapi
+brew cask install qnapi
+
+# Install vlc
+brew cask install vlc
+
+# Install slack
+brew cask install slack
+
+# Install imagemagic
+brew install imagemagick
+
+# Install chrome driver for selenium
+brew install chromedriver
+
 # Install Firefox
 brew cask install firefox
 
 # Install vim
-brew install vim
+brew install vim --with-client-server --with-override-system-vi
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +qall
 
@@ -66,6 +85,18 @@ brew install ctags
 
 # Install tern
 (cd ~/.vim/plugged/tern_for_vim && npm install)
+
+# Install silver_searcher
+brew install the_silver_searcher
+
+# Install java
+brew cask install java
+
+# Install postgresql
+brew install postgresql
+
+# Install redis
+brew install redis
 
 # Install Ruby
 brew install rbenv rbenv-default-gems
@@ -76,6 +107,14 @@ rbenv global 2.4.1
 brew install qt@5.5
 # Install shiftit
 brew cask install shiftit
+
+brew install gpg
+# Hack for gpg https://stackoverflow.com/questions/39494631/gpg-failed-to-sign-the-data-fatal-failed-to-write-commit-object-git-2-10-0
+brew upgrade gnupg
+brew link --overwrite gnupg
+brew install pinentry-mac
+echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+killall gpg-agent
 
 # Create symlinks for dotfiles
 ln -fsv ${DOTFILES_DIR}/.zshrc ~
