@@ -121,6 +121,7 @@ ln -fsv ${DOTFILES_DIR}/.zshrc ~
 rm ~/.zshrc.pre-oh-my-zsh
 
 ln -fsv ${DOTFILES_DIR}/.vimrc ~
+ln -fsv ${DOTFILES_DIR}/.spacemacs ~
 
 ln -fsv ${DOTFILES_DIR}/.ctags ~
 
