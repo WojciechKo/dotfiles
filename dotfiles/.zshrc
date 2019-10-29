@@ -49,7 +49,9 @@ export DEFAULT_USER=wojciechko
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+#
+# <C-O> - Copy typed command
+plugins=(git bundler copybuffer dotenv rails rake-fast z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -81,6 +83,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim=nvim
 
 # Init rbenv
 eval "$(rbenv init -)"
@@ -99,6 +102,7 @@ export GOPATH=$HOME/dev/golang
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:/Applications/MAMP/Library/bin
 
 source $HOME/.cargo/env
 
@@ -116,28 +120,26 @@ BASE16_SHELL=$HOME/dotfiles/base16-shell/
 # alias vim='mvim -v'
 
 # change node version if enter to directory with .nvmrc file
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+# autoload -U add-zsh-hook
+# load-nvmrc() {
+#   local node_version="$(nvm version)"
+#   local nvmrc_path="$(nvm_find_nvmrc)"
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+#   if [ -n "$nvmrc_path" ]; then
+#     local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
-
-alias be='bundle exec'
+#     if [ "$nvmrc_node_version" = "N/A" ]; then
+#       nvm install
+#     elif [ "$nvmrc_node_version" != "$node_version" ]; then
+#       nvm use
+#     fi
+#   elif [ "$node_version" != "$(nvm version default)" ]; then
+#     echo "Reverting to nvm default version"
+#     nvm use default
+#   fi
+# }
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc
 
 # Enable vim motions in terminal
 # bindkey -v
@@ -151,3 +153,44 @@ alias be='bundle exec'
 #
 # source ~/dotfiles/opp.zsh/opp.zsh
 # source ~/dotfiles/opp.zsh/opp/*.zsh
+#
+
+# Go to gem folder
+function gtg() {
+  cd "$(bundle show $1)"
+}
+unalias grv
+
+function release() {
+  kill -9 $(lsof -ti tcp:$1)
+}
+# Uninstall gems for for rbenv
+# Credits:
+# https://gist.github.com/IanVaughan/2902499#file-uninstall_gems-sh-L19
+uninstall_current() {
+  list=`gem list --no-versions`
+  for gem in $list; do
+    gem uninstall $gem -aIx
+  done
+  gem list
+  gem install bundler
+}
+
+uninstall_for_all() {
+  #rbenv versions --bare
+  RBENVPATH=`rbenv root`
+  echo $RBENVPATH
+  RUBIES=`ls $RBENVPATH/versions`
+  for ruby in $RUBIES; do
+    echo '---------------------------------------'
+    echo $ruby
+    rbenv local $ruby
+    uninstall_current
+  done
+}
+
+# added by travis gem
+[ -f /Users/wojciechko/.travis/travis.sh ] && source /Users/wojciechko/.travis/travis.sh
+export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
+
+export LC_ALL=en_US.UTF-8

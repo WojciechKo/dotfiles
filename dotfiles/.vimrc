@@ -19,14 +19,18 @@ endif
 " Files with *.md extension are treat as markdown files
 au BufNewFile,BufRead *.md set filetype=markdown
 
+" Set line length for tex files
+autocmd BufNewFile,BufRead *.tex   set tw=80
+
 " Enable filetype-specific plugins
 filetype plugin on
-
-packadd! matchit
 
 " ========== CUSTOM SHORTCUTS ===
 " Set <Space> to be leader
 let mapleader = " "
+let maplocalleader = ","
+
+vnoremap <silent><leader>con y:let @"=system('base64 --decode', @")<cr>gvP
 
 " Edit .vimrc
 nnoremap <leader>ev :e $MYVIMRC<cr>
@@ -35,12 +39,33 @@ nnoremap <leader>sv :source $MYVIMRC<cr>:redraw!<cr>
 " Open file in chrome
 nnoremap <leader>c :exe ':silent !/usr/bin/open -a "/Applications/Google Chrome.app" %'<CR>
 
+" execute current file
+nnoremap <leader>ef :!%:p<cr>
+" execute current buffer
+nnoremap <leader>ex :%w !zsh<cr>
+
+" copy path of current buffer
+nnoremap <silent> <leader>cp :let @*=expand("%")<cr>
+nnoremap <silent> <leader>cfp :let @*=expand("%:p")<cr>
+
+" Remove byebug's
+nnoremap <silent> <leader>rb :g/byebug/d<cr>
+
+" Run linter faster
+nnoremap <silent> <leader>l :ALEFix<cr>
+
+" Format HTML file
+nnoremap <silent> <leader>fh :!tidy -mib -html -wrap 0 %<cr>
+
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Magic pattern matching
+nnoremap / /\v
+vnoremap / /\v
 
 " ========== CTags ===
 " Create the `tags` file, make sure that ctags is installed
@@ -66,6 +91,7 @@ set wildmode=longest:full,full
 
 " Highlight search results
 set hlsearch
+set incsearch
 
 " Ignore case while search
 set ignorecase
@@ -82,11 +108,14 @@ Plug 'scrooloose/nerdtree'
 map <leader>f :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
 
+Plug 'vim-scripts/keepcase.vim'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'henrik/vim-indexed-search'
 Plug 'kana/vim-textobj-user'
 Plug 'lucapette/vim-textobj-underscore'
 
 Plug 'godlygeek/tabular'
+
 " :Tab /=
 
 " Plug 'junegunn/vim-easy-align' CRAPP
@@ -122,12 +151,17 @@ Plug 'tpope/vim-endwise'
 Plug 'w0rp/ale'
 let g:ale_fixers = {
 \   'ruby': ['rubocop'],
+\   'vue': ['tslint'],
+\   'javascript': ['eslint'],
+\   'json': ['jq'],
+\   'typescript': ['tslint'],
+\   'scss': ['stylelint'],
 \}
 let g:ale_ruby_rubocop_executable = 'bundle'
-let g:ale_lint_on_text_changed     = 'never'
+let g:ale_lint_on_text_changed    = 'never'
 
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
+nmap <Leader>pe <Plug>(ale_previous_wrap)
+nmap <Leader>ne <Plug>(ale_next_wrap)
 
 " COLOR SCHEMA
 Plug 'chriskempson/base16-vim'
@@ -136,8 +170,10 @@ Plug 'chriskempson/base16-vim'
 
 
 " GIT
+Plug 'mattn/webapi-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'mattn/gist-vim'
 " set modifiable
 Plug 'tpope/vim-rhubarb'
 
@@ -147,6 +183,7 @@ Plug 'ap/vim-css-color'
 
 
 " RUBY
+Plug 'danchoi/ri.vim'
 Plug 'rorymckinley/vim-rubyhash'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -156,11 +193,30 @@ let g:splitjoin_join_mapping = ''
 nmap <Leader>sj :SplitjoinSplit<cr>
 nmap <Leader>js :SplitjoinJoin<cr>
 
+Plug 'thoughtbot/vim-rspec'
+
+" let g:rspec_command = ":Shell bundle exec rspec {spec}"
+" let g:rspec_runner = "os_x_iterm2"
+
+map <Leader>tf :call RunCurrentSpecFile()<CR>
+map <Leader>ti :call RunNearestSpec()<CR>
+map <Leader>tt :call RunLastSpec()<CR>
+
 " Plug 'vim-ruby/vim-ruby'
 let g:ruby_indent_block_style = 'do'
 let ruby_operators = 1
 let ruby_spellcheck_strings = 1
 
+" Set filetype for file
+function! s:setf(filetype) abort
+  if &filetype !=# a:filetype
+    let &filetype = a:filetype
+  endif
+endfunction
+
+" Set Ruby filetypes for given files:
+au BufNewFile,BufRead Guardfile,.Guardfile	call s:setf('ruby')
+au BufNewFile,BufRead Capfile,*.cap		call s:setf('ruby')
 
 " MARKDOWN
 Plug 'JamshedVesuna/vim-markdown-preview'
@@ -174,11 +230,18 @@ let vim_markdown_preview_browser='Google Chrome'
 Plug 'tomlion/vim-solidity'
 
 
+Plug 'slim-template/vim-slim'
 " JAVASCRIPT
 Plug 'pangloss/vim-javascript'
 Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx'
-" Plug 'kchmck/vim-coffee-script'
+Plug 'hotoo/jsgf.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'leafOfTree/vim-vue-plugin'
+" let g:vim_vue_plugin_load_full_syntax = 1
+" let g:vim_vue_plugin_use_less = 1
+let g:vim_vue_plugin_use_sass = 1
+" let g:vim_vue_plugin_highlight_vue_attr = 1
 
 " TYPESCRIPT
 " Plug 'HerringtonDarkholme/yats.vim'
@@ -188,8 +251,8 @@ Plug 'ianks/vim-tsx'
 Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 
-Plug 'ternjs/tern_for_vim'
-let g:tern_map_keys=1 " Enable keyboard shortcuts
+" Plug 'ternjs/tern_for_vim'
+" let g:tern_map_keys=1 " Enable keyboard shortcuts
 
 
 " LATEX
@@ -231,7 +294,6 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-
 " ========== CUSTOMIZE NETRW
 " track current directory
 let g:netrw_keepdir=1
@@ -255,6 +317,32 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" ======== CUSTOM SHELL RUNNER
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  let isfirst = 1
+  let words = []
+  for word in split(a:cmdline)
+    if isfirst
+      let isfirst = 0  " don't change first word (shell command)
+    else
+      if word[0] =~ '\v[%#<]'
+        let word = expand(word)
+      endif
+      let word = shellescape(word, 1)
+    endif
+    call add(words, word)
+  endfor
+  let expanded_cmdline = join(words)
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:  ' . a:cmdline)
+  call setline(2, 'Expanded to:  ' . expanded_cmdline)
+  call append(line('$'), substitute(getline(2), '.', '=', 'g'))
+  silent execute '$read !'. expanded_cmdline
+  1
+endfunction
 
 " Shortcuts
 
@@ -286,3 +374,9 @@ nmap ga <Plug>(EasyAlign)
 "
 " Scroll
 " CTRL-E / CTRL-Y - scroll down/up
+"
+" LateX
+" <localleader>ll  - compile *.tex
+"
+" Merge two sets of lines
+" :,+9g/^/''+10m.|-j!
