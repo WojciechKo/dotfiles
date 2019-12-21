@@ -7,3 +7,6 @@
 [submodule "opp.zsh"]
 	path = opp.zsh
 	url = https://github.com/hchbaw/opp.zsh
+[submodule "pure"]
+	path = pure
+	url = git@github.com:sindresorhus/pure.git

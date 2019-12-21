@@ -1,5 +1,5 @@
 [include]
-  path = ~/.gitkurwa_config
+  path = ~/.gitconfig_gitkurwa
   path = ~/.gitconfig_local
 
 [core]
@@ -22,7 +22,4 @@
 
 [alias]
   diffs = diff --staged
-  hub = log --all --pretty=format:'%Cred%h %Cblue%ai %Creset%s' --abbrev-commit --author='Wojciech Korzeniowski' --author-date-order
-
-[commit]
-  gpgsign = true
+  squash-all = "!f(){ git reset $(git commit-tree HEAD^{tree} -m \"${1:-Initial commit}\");};f"

@@ -45,8 +45,8 @@ nnoremap <leader>ef :!%:p<cr>
 nnoremap <leader>ex :%w !zsh<cr>
 
 " copy path of current buffer
-nnoremap <silent> <leader>cp :let @*=expand("%")<cr>
-nnoremap <silent> <leader>cfp :let @*=expand("%:p")<cr>
+nnoremap <silent> <leader>cp :let @+=expand("%")<cr>
+nnoremap <silent> <leader>cfp :let @+=expand("%:p")<cr>
 
 " Remove byebug's
 nnoremap <silent> <leader>rb :g/byebug/d<cr>
@@ -219,12 +219,10 @@ au BufNewFile,BufRead Guardfile,.Guardfile	call s:setf('ruby')
 au BufNewFile,BufRead Capfile,*.cap		call s:setf('ruby')
 
 " MARKDOWN
-Plug 'JamshedVesuna/vim-markdown-preview'
-let vim_markdown_preview_hotkey='<leader>m'
-let vim_markdown_preview_github=0
-let vim_markdown_preview_toggle=3
-let vim_markdown_preview_browser='Google Chrome'
-
+" Plug 'JamshedVesuna/vim-markdown-preview'
+" let vim_markdown_preview_hotkey='<leader>m'
+" let vim_markdown_preview_github=0
+" let vim_markdown_preview_browser='Google Chrome'
 
 " SOLIDITY
 Plug 'tomlion/vim-solidity'
@@ -261,7 +259,7 @@ call plug#end()
 
 
 " =========== INTERFACE ===
-let base16colorspace=256
+" let base16colorspace=256
 colorscheme base16-flat
 
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
@@ -288,11 +286,6 @@ set relativenumber
 
 " Redraw only if change
 set lazyredraw
-
-" Tabs definition
-set tabstop=2
-set shiftwidth=2
-set expandtab
 
 " ========== CUSTOMIZE NETRW
 " track current directory
@@ -343,6 +336,11 @@ function! s:RunShellCommand(cmdline)
   silent execute '$read !'. expanded_cmdline
   1
 endfunction
+
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
 " Shortcuts
 

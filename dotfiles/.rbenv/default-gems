@@ -2,3 +2,5 @@ bundler
 rspec
 byebug
 pry
+neovim
+rubocop
